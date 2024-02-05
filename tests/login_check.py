@@ -2,7 +2,7 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-class LoginCorrectCredentialsTestCase(unittest.TestCase):
+class LoginCheck(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -10,18 +10,15 @@ class LoginCorrectCredentialsTestCase(unittest.TestCase):
         option.add_argument('--headless')
         cls.browser = webdriver.Firefox(options=option)
 
-    def test_1_login_correct_credentials(self):
-        login_url = 'http://localhost/login.php'
+    def test_login_check(self):
+        login_url = 'http://localhost:80/badcrud/login.php'
         self.browser.get(login_url)
 
         self.browser.find_element(By.ID, 'inputUsername').send_keys('admin')
         self.browser.find_element(By.ID, 'inputPassword').send_keys('nimda666!')
-        self.browser.find_element(By.TAG_NAME, 'button').click()
-
-    def test_2_index_page(self):           
+        self.browser.find_element(By.TAG_NAME, 'button').click()          
         expected_result = "admin"
-        
-        actual_result = self.browser.find_element(By.XPATH, "//h2[contains(text(),'Halo,')]").text.split(', ')[1]
+        actual_result = self.browser.find_element(By.TAG_NAME,"h2").text 
         self.assertIn(expected_result, actual_result)
         
     @classmethod

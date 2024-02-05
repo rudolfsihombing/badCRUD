@@ -3,7 +3,7 @@ import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-class LoginEmptyCredentialsTestCase(unittest.TestCase):
+class LoginEmpty(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -11,10 +11,9 @@ class LoginEmptyCredentialsTestCase(unittest.TestCase):
         option.add_argument('--headless')
         cls.browser = webdriver.Firefox(options=option)
 
-    def test_1_login_empty_credentials(self):
-        login_url = 'http://localhost/login.php'
+    def test_login_empty(self):
+        login_url = 'http://localhost:80/badcrud/login.php'
         response = requests.post(login_url, data={})
-        
         self.assertIn('<form class="form-signin"', response.text)
 
     @classmethod

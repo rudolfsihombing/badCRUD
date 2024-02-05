@@ -14,9 +14,9 @@ class TitleTest(unittest.TestCase):
             cls.url = "http://localhost"
 
     def test(self):
-        self.test_title_check()
+        self.title_check()
 
-    def test_title_check(self):
+    def title_check(self):
         login_url = self.url + '/login.php'
         self.browser.get(login_url)
         
