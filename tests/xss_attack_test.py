@@ -1,8 +1,13 @@
-import unittest, os
+import unittest
+import os
+import random
+import string
+import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 
-class XSSDetectionTestCase(unittest.TestCase):
+class CreateContactTestCase(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -13,29 +18,20 @@ class XSSDetectionTestCase(unittest.TestCase):
             cls.url = os.environ['URL']
         except:
             cls.url = "http://localhost"
-            
-    def test(self):
-        self.login_correct_credentials()
-        self.xss_page()
 
-    def login_correct_credentials(self):
+    def test_xss_attack(self):
         login_url = self.url + '/login.php'
         self.browser.get(login_url)
-
         self.browser.find_element(By.ID, 'inputUsername').send_keys('admin')
         self.browser.find_element(By.ID, 'inputPassword').send_keys('nimda666!')
         self.browser.find_element(By.TAG_NAME, 'button').click()
+        
+        action_section = self.browser.find_element(By.XPATH, "//div[contains(@class, 'action')]")
+        btn_xss = action_section.find_element(By.XPATH, ".//a[contains(@class, 'btn-warning')]")
+        btn_xss.click()
 
-    def xss_page(self):
-        xss_url = self.url + '/xss.php'
-        self.browser.get(xss_url)
-
-        input_field = self.browser.find_element(By.NAME, 'thing')
-        input_value = '<script>alert("XSS Attack!");</script>'
-        input_field.send_keys(input_value)
-
-        submit_button = self.browser.find_element(By.NAME, 'submit')
-        submit_button.click()
+        self.browser.find_element(By.NAME, 'thing').send_keys('<script>alert("XSS Attack!");</script>')
+        self.browser.find_element(By.NAME, 'submit').click()
 
         alert = self.browser.switch_to.alert
         self.assertEqual('XSS Attack!', alert.text)

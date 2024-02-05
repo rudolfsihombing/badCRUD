@@ -17,18 +17,27 @@ class CreateContactTestCase(unittest.TestCase):
         except:
             cls.url = "http://localhost:80/badcrud"
 
-    def test_xss(self):
+    def test_delete_contact(self):
         login_url = self.url + '/login.php'
         self.browser.get(login_url)
         self.browser.find_element(By.ID, 'inputUsername').send_keys('admin')
         self.browser.find_element(By.ID, 'inputPassword').send_keys('nimda666!')
         self.browser.find_element(By.TAG_NAME, 'button').click()
 
-        self.browser.find_element(By.NAME, 'thing').send_keys('<script>alert("XSS Attack!");</script>')
-        self.browser.find_element(By.NAME, 'submit').click()
-        alert = self.browser.switch_to.alert
-        self.assertEqual('XSS Attack!', alert.text)
-        alert.accept()
+        actions_section = self.browser.find_element(By.XPATH, "//tr[@role='row'][3]//td[contains(@class, 'actions')]")
+        delete_button = actions_section.find_element(By.XPATH, ".//a[contains(@class, 'btn-danger')]")
+
+        delete_button.click()
+
+        self.browser.switch_to.alert.accept()
+        time.sleep(3)
+
+        self.browser.find_element(By.ID, 'employee_filter').find_element(By.TAG_NAME, 'input').send_keys("Sam White")
+        self.browser.find_element(By.ID, 'employee_filter').find_element(By.TAG_NAME, 'input').send_keys(Keys.ENTER)
+
+        searched_contact_name = "Sam White"
+        searched_contact_exists = self.browser.find_elements(By.XPATH, f"//td[contains(text(), '{searched_contact_name}')]")
+        self.assertFalse(searched_contact_exists)
 
     @classmethod
     def tearDownClass(cls):
