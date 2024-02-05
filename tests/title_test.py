@@ -17,7 +17,9 @@ class TitleTest(unittest.TestCase):
         self.test_title_check()
 
     def test_title_check(self):
-        self.browser.get('http://localhost:80/badcrud/login.php')
+        login_url = self.url + '/login.php'
+        self.browser.get(login_url)
+        
         expected_result = "Login"        
         actual_result = self.browser.title
         self.assertIn(expected_result, actual_result)
