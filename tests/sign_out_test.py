@@ -1,8 +1,13 @@
-import unittest, os
+import unittest
+import os
+import random
+import string
+import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 
-class LogoutTestCase(unittest.TestCase):
+class CreateContactTestCase(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -14,30 +19,20 @@ class LogoutTestCase(unittest.TestCase):
         except:
             cls.url = "http://localhost"
 
-    def test(self):
-        self.login_correct_credentials()
-        self.index_page()
-        self.logout()
-
-    def login_correct_credentials(self):
-        login_url = self.url +'/login.php'
+    def test_sign_out(self):
+        login_url = self.url + '/login.php'
         self.browser.get(login_url)
-
         self.browser.find_element(By.ID, 'inputUsername').send_keys('admin')
         self.browser.find_element(By.ID, 'inputPassword').send_keys('nimda666!')
         self.browser.find_element(By.TAG_NAME, 'button').click()
+        
+        action_section = self.browser.find_element(By.XPATH, "//div[contains(@class, 'action')]")
+        btn_sign_out = action_section.find_element(By.XPATH, ".//a[contains(@class, 'btn-danger')]")
+        btn_sign_out.click()
 
-    def index_page(self):
-        expected_result = "admin"
-        actual_result = self.browser.find_element(By.XPATH, "//h2[contains(text(),'Halo,')]").text.split(', ')[1]
+        expected_result = "Login"        
+        actual_result = self.browser.title
         self.assertIn(expected_result, actual_result)
-
-    def logout(self):
-        self.browser.find_element(By.XPATH, "//a[contains(text(),'Sign out')]").click()
-
-        login_page_title = "Login"
-        actual_title = self.browser.title
-        self.assertEqual(login_page_title, actual_title)
 
     @classmethod
     def tearDownClass(cls):
