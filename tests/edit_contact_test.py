@@ -12,6 +12,7 @@ class CreateContactTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         option = webdriver.FirefoxOptions()
+        option.add_argument('--headless')
         cls.browser = webdriver.Firefox(options=option)
         try:
             cls.url = os.environ['URL']

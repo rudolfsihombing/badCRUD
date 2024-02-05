@@ -24,7 +24,7 @@ class TitleTest(unittest.TestCase):
         actual_result = self.browser.title
         self.assertIn(expected_result, actual_result)
 
-    @classmethod
+    @classmethod    
     def tearDownClass(cls):
         cls.browser.quit()  
 
