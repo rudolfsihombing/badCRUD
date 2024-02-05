@@ -1,8 +1,5 @@
 import unittest
 import os
-import random
-import string
-import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -26,13 +23,13 @@ class CreateContactTestCase(unittest.TestCase):
         self.browser.find_element(By.ID, 'inputPassword').send_keys('nimda666!')
         self.browser.find_element(By.TAG_NAME, 'button').click()
         
-        create_url = self.url + '/create.php'
-        self.browser.get(create_url)
+        btn_create = self.browser.find_element(By.XPATH, "//a[contains(@class, 'create-contact')]")
+        btn_create.click()
 
-        self.browser.find_element(By.ID, 'name').send_keys('Brothers')
-        self.browser.find_element(By.ID, 'email').send_keys('brothers@example.com')
-        self.browser.find_element(By.ID, 'phone').send_keys('1238971273')
-        self.browser.find_element(By.ID, 'title').send_keys('Student')
+        self.browser.find_element(By.ID, 'name').send_keys('Livia')
+        self.browser.find_element(By.ID, 'email').send_keys('livia@example.com')
+        self.browser.find_element(By.ID, 'phone').send_keys('+6281234321127')
+        self.browser.find_element(By.ID, 'title').send_keys('General')
 
         self.browser.find_element(By.CSS_SELECTOR, 'input[type="submit"]').click()
 
