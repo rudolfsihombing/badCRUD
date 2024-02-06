@@ -30,6 +30,7 @@ jobs:
         uses: hermanka/action-full-scan@master
         with:
           target: ${{ env.URL }}
+          configParams: "-config authentication.file.path=../configParams.json"
           sessionManagement: true
           sessionName: ZAP_Scan_Session
           sessionOverwrite: true

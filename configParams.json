@@ -1,0 +1,14 @@
+{
+"authentication": {
+    "authMethod": "HTTP",
+    "authCredentials": [
+    {
+        "hostname": "example.com",
+        "port": "80",
+        "realm": "Protected Area",
+        "username": "admin",
+        "password": "nimda666!"
+    }
+    ]
+}
+}
