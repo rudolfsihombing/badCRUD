@@ -29,20 +29,8 @@ jobs:
       - name: ZAP Scan
         uses: hermanka/action-full-scan@master
         env: 
-          contexts:
-            authentication:
-              method: "browser"
-              parameters:
-                loginPageUrl: "http://localhost:4444/login"
-              verification:
-                method: "autodetect"
-            sessionManagement:
-              method: "autodetect"
-            users:
-            - name: "test"
-              credentials:
-                username: "admin"
-                password: "nimda666!"
+          username: "admin"
+          password: "nimda666!"
         with:
           target: ${{ env.URL }}
           network_name: isolated
