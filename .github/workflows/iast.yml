@@ -28,6 +28,10 @@ jobs:
         
       - name: ZAP Scan
         uses: hermanka/action-full-scan@master
+        env: 
+          ZAP_AUTH_HEADER_VALUE: ${{ env.ZAP_AUTH_HEADER_VALUE }}
+          ZAP_AUTH_HEADER: ${{ env.ZAP_AUTH_HEADER }}
+          ZAP_AUTH_HEADER_SITE: ${{ env.ZAP_AUTH_HEADER_SITE }}
         with:
           target: ${{ env.URL }}
           network_name: isolated
