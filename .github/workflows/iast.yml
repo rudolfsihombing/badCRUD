@@ -30,6 +30,9 @@ jobs:
         uses: hermanka/action-full-scan@master
         with:
           target: ${{ env.URL }}
+          sessionManagement: true
+          sessionName: ZAP_Scan_Session
+          sessionOverwrite: true
           network_name: isolated
 
       - name: stop docker
