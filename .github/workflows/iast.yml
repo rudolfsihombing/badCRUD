@@ -32,8 +32,6 @@ jobs:
           contexts:
             urls:
             - ${{ env.URL }}
-            includePaths: []
-            excludePaths: []
             authentication:
               method: "browser"
               parameters:
