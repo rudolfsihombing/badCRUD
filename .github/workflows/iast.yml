@@ -30,7 +30,6 @@ jobs:
         uses: hermanka/action-full-scan@master
         env: 
           contexts:
-          - name : "target"
             urls:
             - ${{ env.URL }}
             includePaths: []
