@@ -31,23 +31,23 @@ jobs:
         env: 
           contexts:
           - name : "target"
-          urls:
-          - ${{ env.URL }}
-          includePaths: []
-          excludePaths: []
-          authentication:
-            method: "browser"
-            parameters:
-              loginPageUrl: "http://localhost:4444/login"
-            verification:
+            urls:
+            - ${{ env.URL }}
+            includePaths: []
+            excludePaths: []
+            authentication:
+              method: "browser"
+              parameters:
+                loginPageUrl: "http://localhost:4444/login"
+              verification:
+                method: "autodetect"
+            sessionManagement:
               method: "autodetect"
-          sessionManagement:
-            method: "autodetect"
-          users:
-          - name: "test"
-            credentials:
-              username: "admin"
-              password: "nimda666!"
+            users:
+            - name: "test"
+              credentials:
+                username: "admin"
+                password: "nimda666!"
         with:
           target: ${{ env.URL }}
           network_name: isolated
