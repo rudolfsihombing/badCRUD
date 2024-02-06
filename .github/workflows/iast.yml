@@ -30,8 +30,6 @@ jobs:
         uses: hermanka/action-full-scan@master
         env: 
           contexts:
-            urls:
-            - ${{ env.URL }}
             authentication:
               method: "browser"
               parameters:
