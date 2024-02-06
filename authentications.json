@@ -1,0 +1,13 @@
+{
+    "authentication": {
+        "authMethod": "MySQL",
+        "authCredentials": [
+        {
+            "hostname": "mysql",
+            "port": "3306",
+            "username": "admin",
+            "password": "nimda666!"
+        }
+        ]
+    }
+}

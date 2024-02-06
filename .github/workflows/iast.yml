@@ -8,6 +8,18 @@ jobs:
     name: DAST
     permissions: write-all
     runs-on: ubuntu-latest
+    services:
+        mysql:
+          image: mysql:latest
+          env:
+            MYSQL_ROOT_PASSWORD: aman123
+            MYSQL_DATABASE: badcrud
+            MYSQL_USER: root
+            MYSQL_PASSWORD: aman123
+          ports:
+            - 3306:3306
+          options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v4
@@ -30,7 +42,7 @@ jobs:
         uses: hermanka/action-full-scan@master
         with:
           target: ${{ env.URL }}
-          configParams: "-config authentication.file.path=../configParams.json"
+          configParams: "-config authentication.file.path=/path/to/authentication.json"
           sessionManagement: true
           sessionName: ZAP_Scan_Session
           sessionOverwrite: true
